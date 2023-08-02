@@ -65,6 +65,10 @@ function addItem(e){
 
   itemList.appendChild(li)
 
+  //clearing contents of form
+  //   var all=documnet.querySelectorAll(".form-control")
+  form.reset();
+  
 }
 
 // Remove item
