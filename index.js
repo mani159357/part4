@@ -2,13 +2,11 @@ var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
 
-
-var newbox=document.createElement("input")
-newbox.type="text"
-newbox.className="form-control mr-2 item3"
-form.insertBefore(newbox,form.firstChild)
-// var temp=document.querySelector(".form-control mr-2")
-// temp.idName="item3"
+// ading new text bos
+// var newbox=document.createElement("input")
+// newbox.type="text"
+// newbox.className="form-control mr-2 item3"
+// form.insertBefore(newbox,form.firstChild)
 
 // Form submit event
 form.addEventListener('submit', addItem);
@@ -24,9 +22,10 @@ function addItem(e){
   // Get input value
   var newItem1 = document.getElementById('item1').value;
   var newItem2 = document.getElementById('item2').value;
-  var newItem3 = document.querySelector('.item3').value;
+//   var newItem3 = document.querySelector('.item3').value;
+    var newItem3 = " "
   var newItem = newItem3+" "+newItem1+" "+newItem2
-
+  localStorage.setItem(newItem1,newItem2)
   // Create new li element
   var li = document.createElement('li');
   // Add class
@@ -68,7 +67,7 @@ function addItem(e){
   //clearing contents of form
   //   var all=documnet.querySelectorAll(".form-control")
   form.reset();
-  
+
 }
 
 // Remove item
