@@ -2,6 +2,14 @@ var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
 
+
+var newbox=document.createElement("input")
+newbox.type="text"
+newbox.className="form-control mr-2 item3"
+form.insertBefore(newbox,form.firstChild)
+// var temp=document.querySelector(".form-control mr-2")
+// temp.idName="item3"
+
 // Form submit event
 form.addEventListener('submit', addItem);
 // Delete event
@@ -14,7 +22,10 @@ function addItem(e){
   e.preventDefault();
 
   // Get input value
-  var newItem = document.getElementById('item').value;
+  var newItem1 = document.getElementById('item1').value;
+  var newItem2 = document.getElementById('item2').value;
+  var newItem3 = document.querySelector('.item3').value;
+  var newItem = newItem3+" "+newItem1+" "+newItem2
 
   // Create new li element
   var li = document.createElement('li');
@@ -22,6 +33,8 @@ function addItem(e){
   li.className = 'list-group-item';
   // Add text node with input value
   li.appendChild(document.createTextNode(newItem));
+//   li.appendChild(document.createTextNode("-"));
+//   li.appendChild(document.createTextNode(newItem2));
 
   // Create del button element
   var deleteBtn = document.createElement('button');
@@ -71,7 +84,8 @@ function filterItems(e){
   // Get lis
   var items = itemList.getElementsByTagName('li');
   // Convert to an array
-  Array.from(items).forEach(function(item){
+  Array.from(items).forEach(function(item)
+  {
     var itemName = item.firstChild.textContent;
     if(itemName.toLowerCase().indexOf(text) != -1)
     {
