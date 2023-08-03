@@ -19,7 +19,7 @@ filter.addEventListener('keyup', filterItems);
 function details(name,description)
 {
   this.name=name
-  this.description=description
+  this.gmail=description
 }
 
 // let data1 = new details("mani","Student")
@@ -33,10 +33,10 @@ function addItem(e){
   // Get input value
   var newItem1 = document.getElementById('item1').value;
   var newItem2 = document.getElementById('item2').value;
-//   var newItem3 = document.querySelector('.item3').value;
-  var newItem3 = " "
-  var newItem = newItem3+" "+newItem1+" "+newItem2
-  localStorage.setItem(newItem1,newItem2)
+  //   var newItem3 = document.querySelector('.item3').value;
+  // var newItem3 = " "
+  // var newItem = newItem1+" - "+newItem2
+  // localStorage.setItem(newItem1,newItem2)
   
   //adding data to local storage through Object
   var data = new details(newItem1,newItem2)
@@ -49,9 +49,15 @@ function addItem(e){
   let obj_deserialised = JSON.parse(obj_serialised)
   console.log(obj_deserialised)
 
-  var app="details"+(i++)
+  // var app="details"+(i++)
+  
   //storing in Local Storage
-  localStorage.setItem(app,obj_serialised)
+  localStorage.setItem(newItem1,obj_serialised)
+
+  //adding new list for making the deletion in local storage '-'
+  var lii = document.createElement("li")
+  lii.classname="list-group-item inner"
+  lii.appendChild(document.createTextNode(newItem1))
 
   // Create new li element
   var li = document.createElement('li');
@@ -60,7 +66,9 @@ function addItem(e){
   li.className = 'list-group-item';
 
   // Add text node with input value
-  li.appendChild(document.createTextNode(newItem));
+  li.appendChild(lii)
+  li.appendChild(document.createTextNode(newItem2));
+ 
 //   li.appendChild(document.createTextNode("-"));
 //   li.appendChild(document.createTextNode(newItem2));
 
@@ -71,7 +79,7 @@ function addItem(e){
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
   // Append text node
-  deleteBtn.appendChild(document.createTextNode('X'));
+  deleteBtn.appendChild(document.createTextNode('Delete'));
 
   // Append button to li
   li.appendChild(deleteBtn);
@@ -104,7 +112,10 @@ function removeItem(e){
   if(e.target.classList.contains('delete')){
     if(confirm('Are You Sure?')){
       var li = e.target.parentElement;
+      var mydoubt=li.firstElementChild.textContent
+      // console.log(mydoubt)
       itemList.removeChild(li);
+      localStorage.removeItem(mydoubt)
     }
   }
 }
