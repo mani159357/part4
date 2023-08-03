@@ -1,7 +1,7 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
-
+var i=0;
 // ading new text bos
 // var newbox=document.createElement("input")
 // newbox.type="text"
@@ -29,6 +29,7 @@ function details(name,description)
 function addItem(e){
   e.preventDefault();
 
+  
   // Get input value
   var newItem1 = document.getElementById('item1').value;
   var newItem2 = document.getElementById('item2').value;
@@ -36,20 +37,21 @@ function addItem(e){
   var newItem3 = " "
   var newItem = newItem3+" "+newItem1+" "+newItem2
   localStorage.setItem(newItem1,newItem2)
-
+  
   //adding data to local storage through Object
   var data = new details(newItem1,newItem2)
 
   //Serialising the object data
   let obj_serialised = JSON.stringify(data)
-  console.log(obj_serialised)
+  // console.log(obj_serialised)
 
-  //deserialising the object data
-  let obj_deserialised = JSON.parse(localStorage.getItem("data"))
+  //deserialising the object data   localStorage.getItem("data")
+  let obj_deserialised = JSON.parse(obj_serialised)
   console.log(obj_deserialised)
 
+  var app="details"+(i++)
   //storing in Local Storage
-  localStorage.setItem("Details",obj_serialised)
+  localStorage.setItem(app,obj_serialised)
 
   // Create new li element
   var li = document.createElement('li');
