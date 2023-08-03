@@ -15,6 +15,16 @@ itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
 
+// object creation
+function details(name,description)
+{
+  this.name=name
+  this.description=description
+}
+
+// let data1 = new details("mani","Student")
+
+
 // Add item
 function addItem(e){
   e.preventDefault();
@@ -23,13 +33,30 @@ function addItem(e){
   var newItem1 = document.getElementById('item1').value;
   var newItem2 = document.getElementById('item2').value;
 //   var newItem3 = document.querySelector('.item3').value;
-    var newItem3 = " "
+  var newItem3 = " "
   var newItem = newItem3+" "+newItem1+" "+newItem2
   localStorage.setItem(newItem1,newItem2)
+
+  //adding data to local storage through Object
+  var data = new details(newItem1,newItem2)
+
+  //Serialising the object data
+  let obj_serialised = JSON.stringify(data)
+  console.log(obj_serialised)
+
+  //deserialising the object data
+  let obj_deserialised = JSON.parse(localStorage.getItem("data"))
+  console.log(obj_deserialised)
+
+  //storing in Local Storage
+  localStorage.setItem("Details",obj_serialised)
+
   // Create new li element
   var li = document.createElement('li');
+
   // Add class
   li.className = 'list-group-item';
+
   // Add text node with input value
   li.appendChild(document.createTextNode(newItem));
 //   li.appendChild(document.createTextNode("-"));
