@@ -15,6 +15,7 @@ itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
 
+
 // object creation
 function details(name,description)
 {
@@ -50,7 +51,7 @@ function addItem(e){
   console.log(obj_deserialised)
 
   // var app="details"+(i++)
-  
+
   //storing in Local Storage
   localStorage.setItem(newItem1,obj_serialised)
 
@@ -93,7 +94,7 @@ function addItem(e){
 
   editbtn.style.backgroundColor="green"
 
-  editbtn.className="btn btn-danger btn-sm float-right edit"
+  editbtn.className="btn btn-danger btn-sm float-right delete edit"
 
   editbtn.appendChild(document.createTextNode("Edit"))
 
@@ -111,13 +112,68 @@ function addItem(e){
 function removeItem(e){
   if(e.target.classList.contains('delete')){
     if(confirm('Are You Sure?')){
+      if(e.target.classList.contains('edit'))
+      {
       var li = e.target.parentElement;
       var mydoubt=li.firstElementChild.textContent
       // console.log(mydoubt)
-      itemList.removeChild(li);
+      // var preval=localStorage.getItem(mydoubt)
+      console.log(mydoubt)
+
+      const storedData = localStorage.getItem(mydoubt);
+
+      // Check if the data exists in localStorage
+      if (storedData) 
+      {
+        // Parse the stored data if it's in JSON format
+        const parsedData = JSON.parse(storedData);
+
+        document.getElementById("item1").value=parsedData.name
+        document.getElementById("item2").value=parsedData.gmail
+        
+        // Access the properties using dot notation
+        console.log(parsedData.name); // Output: 'MANI KANTH BOLEM'
+        console.log(parsedData.gmail); // Output: 'manibolem324@gmail.com'
+      } 
+      else 
+      {
+        console.log("Data not found in localStorage with the key 'getName'");
+      }
+
+      itemList.removeChild(li)
       localStorage.removeItem(mydoubt)
+     }
+     else{
+      var li = e.target.parentElement;
+      var mydoubt=li.firstElementChild.textContent
+      console.log(mydoubt)
+      itemList.removeChild(li)
+      localStorage.removeItem(mydoubt)
+     }
     }
   }
+
+  // function chnaging( name,email)
+  // {
+
+  // }
+  
+  // var editing=document.querySelector()
+  //editing
+  // function removeItem(e){
+  //   if(e.target.classList.contains('delete')){
+  //     if(confirm('Do you want to edit ?')){
+  //       var li = e.target.parentElement;
+  //       var mydoubt=li.firstElementChild.textContent
+  //       // console.log(mydoubt)
+  //       itemList.removeChild(li);
+  //       var prevval=localStorage.getItem(mydoubt);
+  //       console.log(preval)
+  //       localStorage.removeItem(mydoubt)
+
+  //     }
+  //   }
+  // }
 }
 
 // Filter Items
