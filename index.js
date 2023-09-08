@@ -1,12 +1,75 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
-var i=0;
 // ading new text bos
 // var newbox=document.createElement("input")
 // newbox.type="text"
 // newbox.className="form-control mr-2 item3"
 // form.insertBefore(newbox,form.firstChild)
+
+
+ // Load applicants from localStorage when the page loads
+ window.addEventListener('load', function () {
+  loadApplicantsFromLocalStorage();
+});
+
+// Function to load applicants from localStorage
+function loadApplicantsFromLocalStorage() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (key.startsWith('applicant_')) {
+      var storedData = JSON.parse(localStorage.getItem(key));
+      addItemToApplicantsList(storedData.name, storedData.gmail);
+    }
+  }
+}
+
+//Funtion to add Applicants data to the List
+function addItemToApplicantsList(newItem1,newItem2){
+  var lii = document.createElement("li")
+  lii.classname="list-group-item inner"
+  lii.appendChild(document.createTextNode(newItem1))
+
+  // Create new li element
+  var li = document.createElement('li');
+
+  // Add class
+  li.className = 'list-group-item';
+
+  // Add text node with input value
+  li.appendChild(lii)
+  li.appendChild(document.createTextNode(newItem2));
+
+    // Create del button element
+    var deleteBtn = document.createElement('button');
+
+    // Add classes to del button
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  
+    // Append text node
+    deleteBtn.appendChild(document.createTextNode('Delete'));
+  
+    // Append button to li
+    li.appendChild(deleteBtn);
+  
+    // Append li to list
+    itemList.appendChild(li);
+  
+  
+    // creating edit button
+    var editbtn=document.createElement("button")
+  
+    editbtn.style.backgroundColor="green"
+  
+    editbtn.className="btn btn-danger btn-sm float-right delete edit"
+  
+    editbtn.appendChild(document.createTextNode("Edit"))
+  
+    li.append(editbtn)
+  
+    itemList.appendChild(li)
+}
+
 
 // Form submit event
 form.addEventListener('submit', addItem);
@@ -44,16 +107,18 @@ function addItem(e){
 
   //Serialising the object data
   let obj_serialised = JSON.stringify(data)
+  console.log(obj_serialised)
   // console.log(obj_serialised)
 
   //deserialising the object data   localStorage.getItem("data")
   let obj_deserialised = JSON.parse(obj_serialised)
   console.log(obj_deserialised)
+  
 
   // var app="details"+(i++)
 
   //storing in Local Storage
-  localStorage.setItem(newItem1,obj_serialised)
+  localStorage.setItem('applicant_' +newItem1,obj_serialised)
 
   //adding new list for making the deletion in local storage '-'
   var lii = document.createElement("li")
@@ -108,6 +173,8 @@ function addItem(e){
 
 }
 
+
+
 // Remove item
 function removeItem(e){
   if(e.target.classList.contains('delete')){
@@ -148,7 +215,7 @@ function removeItem(e){
       var mydoubt=li.firstElementChild.textContent
       console.log(mydoubt)
       itemList.removeChild(li)
-      localStorage.removeItem(mydoubt)
+      localStorage.removeItem('applicant_'+mydoubt)
      }
     }
   }
